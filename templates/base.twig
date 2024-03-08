@@ -3,20 +3,43 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="./../node_modules/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/todo_list/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
 		<title>Document</title>
 	</head>
 	<body>
-		<nav>
-			<ul>
-				<li><a href="/todo_list/public/">Accueil</a></li>
-				<li><a href="/todo_list/public/task/">Tâches</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
+		<nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="ligth">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">TODOLIST</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/todo_list/public/">
+								accueil
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/todo_list/public/task/">
+								mes tâches
+							</a>
+						</li>
+					</ul>
+					<form class="d-flex" role="search">
+						<input class="form-control me-2" type="search" placeholder="rechechez une tâche" aria-label="Search">
+						<button class="btn btn-outline-dark" type="submit">recherche</button>
+					</form>
+				</div>
+			</div>
 		</nav>
+
 		{% block content %}
 			{# <p>je suis dans base.twig</p> #}
 		{% endblock %}
-		<footer>ici mon footer</footer>
+		{# <footer>ici mon footer</footer> #}
+		<script src="/todo_list/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
 	</body>
 </html>

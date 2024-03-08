@@ -1,10 +1,30 @@
 {% extends 'base.twig' %}
 {% block content %}
-	<ul>
+	<div class="container py-5">
+		<div class="d-flex justify-content-end">
+			<a href="/todo_list/public/task/new" class="btn btn-outline-dark">
+				nouvelle tâche
+			</a>
+		</div>
 		{% for task in tasks %}
-			<li>
-				<a href="/todo_list/public/task/{{ task.id }}">{{ task.title }}</a>
-			</li>
+			<div class="card my-2">
+				<div class="card-body">
+					<div class="d-flex justify-content-between">
+						<div>{{ task.title }}</div>
+						<div class="d-flex">
+							<div>
+								<a href="/todo_list/public/task/{{task.id}}" class="btn btn-outline-success mx-2">voir</a>
+							</div>
+							<div>
+								<a href="#" class="btn btn-outline-warning mx-2">modifier</a>
+							</div>
+							<div>
+								<a href="#" class="btn btn-outline-danger mx-2">supprimer</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		{% endfor %}
-	</ul>
+	</div>
 {% endblock %}
