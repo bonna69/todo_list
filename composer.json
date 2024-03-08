@@ -1,0 +1,17 @@
+{
+    "name": "app/todolist",
+    "autoload": {
+        "psr-4": {
+            "App\\Todolist\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Assou",
+            "email": "assoumani.mutabaruka@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.8"
+    }
+}
