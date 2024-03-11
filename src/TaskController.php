@@ -93,4 +93,62 @@ class TaskController
             'task' => $task
         ]);
     }
+    
+    public function delete(int $id)
+    {
+        // se connecter à la base de donnée
+        $pdo = new Database(
+            "127.0.0.1",
+            "todolist",
+            "3306",
+            "root",
+            ""
+        );
+        // récupérer les datas
+        $task = $pdo->select(
+            "DELETE FROM task WHERE id = " . $id
+        );
+
+        // rediriger vers la liste des tâches
+        header("Location: http://localhost/todo_list/public/task/");
+    }
+
+    public function update(int $id)
+    {
+        // determiner le dossier qui va contenir les fichiers twig
+        $loader = new FilesystemLoader("../templates");
+        // inintialiser twig
+        $twig = new Environment($loader);
+        // se connecter à la base de donnée
+        $pdo = new Database(
+            "127.0.0.1",
+            "todolist",
+            "3306",
+            "root",
+            ""
+        );
+
+        // récupérer les datas
+        $task = $pdo->select(
+            "SELECT * FROM task WHERE id = " . $id
+        );
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            // récupérer les datas
+            $title = $_POST['title'];
+            $status = $_POST['status'];
+            $pdo->query(
+                "UPDATE task SET title='$title', status='$status' WHERE id=$id",
+            );
+
+            // rediriger vers la liste des tâches
+            header("Location: http://localhost/todo_list/public/task/");
+            die();
+        }
+
+        echo $twig->render('taskUpdatePage.twig', [
+            'task' => $task,
+            'optionList' => ["En attente", "terminée"]
+        ]);
+    }
 }
