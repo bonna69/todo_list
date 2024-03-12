@@ -1,7 +1,10 @@
 <?php 
 namespace App\Todolist;
 
-use App\Todolist\HomeController;
+use App\Todolist\Controller\HomeController;
+use App\Todolist\Controller\TaskController;
+
+
 
 class Router 
 {

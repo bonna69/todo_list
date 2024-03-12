@@ -1,6 +1,7 @@
 <?php 
-namespace App\Todolist;
+namespace App\Todolist\Controller;
 
+use App\Todolist\Repository\TaskRepository;
 use App\Todolist\Service\Database;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -15,18 +16,8 @@ class TaskController
         // inintialiser twig
         $twig = new Environment($loader);
 
-        // se connecter à la base de donnée
-        $pdo = new Database(
-            "127.0.0.1",
-            "todolist",
-            "3306",
-            "root",
-            ""
-        );
-        // récupérer les datas
-        $tasks = $pdo->selectAll(
-            "SELECT * FROM task"
-        );
+        $taskRepository = new TaskRepository();
+        $tasks = $taskRepository->index();
         // echo "<pre>" ; 
         // var_dump($tasks);
         // echo "</pre>";
@@ -43,19 +34,8 @@ class TaskController
         $twig = new Environment($loader);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST"){
-            // se connecter à la base de donnée
-            $pdo = new Database(
-                "127.0.0.1",
-                "todolist",
-                "3306",
-                "root",
-                ""
-            );
-            // récupérer les datas
-            $pdo->query(
-                "INSERT INTO task (title, status) VALUES (?,?)",
-                [$_POST['title'], $_POST['status']]
-            );
+            $taskrepository = new TaskRepository();
+            $taskrepository->add();
 
             // rediriger vers la liste des tâches
             header("Location: http://localhost/todo_list/public/task/");
@@ -70,24 +50,9 @@ class TaskController
         $loader = new FilesystemLoader("../templates");
         // inintialiser twig
         $twig = new Environment($loader);
-        // rendre une vue
 
-        // se connecter à la base de donnée
-        $pdo = new Database(
-            "127.0.0.1",
-            "todolist",
-            "3306",
-            "root",
-            ""
-        );
-        // récupérer les datas
-        $task = $pdo->select(
-            "SELECT * FROM task WHERE id = " . $id
-        );
-
-        // echo "<pre>" ; 
-        // var_dump($task);
-        // echo "</pre>";
+        $taskRepository = new TaskRepository();
+        $task = $taskRepository->find($id);       
         
         echo $twig->render('taskDetailPage.twig', [
             'task' => $task
@@ -96,18 +61,8 @@ class TaskController
     
     public function delete(int $id)
     {
-        // se connecter à la base de donnée
-        $pdo = new Database(
-            "127.0.0.1",
-            "todolist",
-            "3306",
-            "root",
-            ""
-        );
-        // récupérer les datas
-        $task = $pdo->select(
-            "DELETE FROM task WHERE id = " . $id
-        );
+        $taskRepository = new TaskRepository();
+        $taskRepository->remove($id);
 
         // rediriger vers la liste des tâches
         header("Location: http://localhost/todo_list/public/task/");
@@ -120,30 +75,17 @@ class TaskController
         // inintialiser twig
         $twig = new Environment($loader);
         // se connecter à la base de donnée
-        $pdo = new Database(
-            "127.0.0.1",
-            "todolist",
-            "3306",
-            "root",
-            ""
-        );
-
-        // récupérer les datas
-        $task = $pdo->select(
-            "SELECT * FROM task WHERE id = " . $id
-        );
+        $taskRepository = new TaskRepository();
+        $task = $taskRepository->find($id);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             // récupérer les datas
             $title = $_POST['title'];
             $status = $_POST['status'];
-            $pdo->query(
-                "UPDATE task SET title='$title', status='$status' WHERE id=$id",
-            );
+            $taskRepository->update($id, $title, $status);
 
             // rediriger vers la liste des tâches
             header("Location: http://localhost/todo_list/public/task/");
-            die();
         }
 
         echo $twig->render('taskUpdatePage.twig', [
