@@ -10,7 +10,7 @@ class TaskRepository
         // se connecter à la base de donnée
         $pdo = new Database(
             "127.0.0.1",
-            "todolist",
+            "todo_list",
             "3306",
             "root",
             ""
@@ -27,7 +27,7 @@ class TaskRepository
         // se connecter à la base de donnée
         $pdo = new Database(
             "127.0.0.1",
-            "todolist",
+            "todo_list",
             "3306",
             "root",
             ""
@@ -44,7 +44,7 @@ class TaskRepository
         // se connecter à la base de donnée
         $pdo = new Database(
             "127.0.0.1",
-            "todolist",
+            "todo_list",
             "3306",
             "root",
             ""
@@ -62,7 +62,7 @@ class TaskRepository
         // se connecter à la base de donnée
         $pdo = new Database(
             "127.0.0.1",
-            "todolist",
+            "todo_list",
             "3306",
             "root",
             ""
@@ -79,7 +79,7 @@ class TaskRepository
         // se connecter à la base de donnée
         $pdo = new Database(
             "127.0.0.1",
-            "todolist",
+            "todo_list",
             "3306",
             "root",
             ""
